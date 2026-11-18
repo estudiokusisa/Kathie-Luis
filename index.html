@@ -130,20 +130,11 @@
   }
   .datos .pases{
     margin-top:.7em;
-    font-size:calc(var(--ew) * .034);
-    letter-spacing:.22em;
-    color:var(--texto);
-  }
-
-  /* Número de pases: otra tipografía y más grande para que se note */
-  .datos .pases .num{
     font-family:'Cinzel',serif;
     font-weight:600;
-    font-size:1.7em;          /* tamaño del número (sube o baja este valor) */
-    letter-spacing:0;
+    font-size:calc(var(--ew) * .045);
+    letter-spacing:.18em;
     color:#4d4a3b;
-    margin-right:.2em;
-    vertical-align:-.08em;
   }
 
   /* ---------- INDICACIÓN ---------- */
@@ -205,8 +196,8 @@
   function ponerDatos(nombre, pases){
     if (nombre) document.getElementById("nombre").textContent = nombre;
     const n = parseInt(pases, 10);
-    document.getElementById("pases").innerHTML =
-      n > 0 ? '<span class="num">' + n + '</span>' + (n === 1 ? "PASE" : "PASES") : "";
+    document.getElementById("pases").textContent =
+      n > 0 ? String(n).padStart(2, "0") + " " + (n === 1 ? "PASE" : "PASES") : "";
   }
 
   // Consulta tu Google Sheet en tiempo real a través de Apps Script
