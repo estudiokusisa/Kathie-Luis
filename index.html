@@ -19,7 +19,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Cormorant+Garamond:wght@400;500;600&family=Cinzel:wght@500;600&display=swap" rel="stylesheet">
 <style>
   /*
     FUENTE "Lovelace Text": no está en Google Fonts.
@@ -135,6 +135,17 @@
     color:var(--texto);
   }
 
+  /* Número de pases: otra tipografía y más grande para que se note */
+  .datos .pases .num{
+    font-family:'Cinzel',serif;
+    font-weight:600;
+    font-size:1.7em;          /* tamaño del número (sube o baja este valor) */
+    letter-spacing:0;
+    color:#4d4a3b;
+    margin-right:.2em;
+    vertical-align:-.08em;
+  }
+
   /* ---------- INDICACIÓN ---------- */
   .indicacion{
     margin-top:calc(var(--ew) * .05);
@@ -184,7 +195,7 @@
   const LINK_CANVA = "https://kusisainvitaciones.com/kathie-luis";
 
   // URL de tu Apps Script publicado como "Aplicación web" (termina en /exec)
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCBcYVz1sef6S7VrdpecxxuE37wbRs8rY4uMEdM1E4hdDnRwmdS7Hlk6r-Lrp4ZJhkGg/exec";
+  const APPS_SCRIPT_URL = "PEGA-AQUI-LA-URL-DE-TU-APPS-SCRIPT";
   /* ======================================= */
 
   // El enlace trae el número de fila de tu Google Sheet:  ?id=7
@@ -194,8 +205,8 @@
   function ponerDatos(nombre, pases){
     if (nombre) document.getElementById("nombre").textContent = nombre;
     const n = parseInt(pases, 10);
-    document.getElementById("pases").textContent =
-      n > 0 ? (n === 1 ? "1 PASE" : n + " PASES") : "";
+    document.getElementById("pases").innerHTML =
+      n > 0 ? '<span class="num">' + n + '</span>' + (n === 1 ? "PASE" : "PASES") : "";
   }
 
   // Consulta tu Google Sheet en tiempo real a través de Apps Script
