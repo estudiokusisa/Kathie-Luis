@@ -219,9 +219,12 @@
     setTimeout(() => { window.location.href = LINK_CANVA; }, 700);
   }
   sobre.addEventListener("click", abrir);
-  sobre.addEventListener("keydown", e => {
-    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); abrir(); }
-  });
+sobre.addEventListener("keydown", e => {
+if (e.key === "Enter" || e.key === " ") { e.preventDefault(); abrir(); }
+});
+
+// Si el invitado vuelve atrás desde Canva, mostrar de nuevo el sobre y la cartilla
+window.addEventListener("pageshow", () => {
+document.body.classList.remove("saliendo");
+});
 </script>
-</body>
-</html>
