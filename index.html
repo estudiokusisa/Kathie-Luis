@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Invitación especial</title>
+
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+<!-- Vista previa en WhatsApp -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Kathie &amp; Luis - Nuestro matrimonio">
+<meta property="og:description" content="Tenemos una invitación especial para ti 💌 Toca aquí para abrirla">
+<meta property="og:image" content="https://kathie-luis.netlify.app/miniatura.png">
+<meta property="og:image:width" content="1366">
+<meta property="og:image:height" content="768">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Luxurious+Script&family=Cormorant+Garamond:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  /*
+    FUENTE "Lovelace Text": no está en Google Fonts.
+    Sube tu archivo de fuente a la carpeta "fuentes" con el nombre
+    lovelace.woff2 (o .ttf / .otf) y se cargará sola.
+    Mientras no esté, se usa Cormorant Garamond como reemplazo.
+  */
+  @font-face{
+    font-family:'Lovelace Text';
+    src:url('fuentes/lovelace.woff2') format('woff2'),
+        url('fuentes/lovelace.ttf') format('truetype'),
+        url('fuentes/lovelace.otf') format('opentype');
+    font-display:swap;
+  }
+
+  :root{
+    /* ancho base del sobre: se adapta a celular y computadora */
+    --ew:min(86vw, 640px, 48vh);
+    --crema:#f4ecdc;
+    --texto:#5a5646;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:#8f9680 url('fondo.jpg') center/cover no-repeat;
+    min-height:100vh;min-height:100svh;
+    overflow:hidden;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Lovelace Text','Cormorant Garamond',serif;
+    transition:opacity .8s ease;
+  }
+  body.saliendo{opacity:0}
+
+  .escena{
+    width:var(--ew);
+    display:flex;flex-direction:column;align-items:center;
+  }
+
+  /* ---------- TÍTULO ---------- */
+  .titulo{
+    font-family:'Luxurious Script',cursive;
+    font-weight:400;
+    font-size:calc(var(--ew) * .17);
+    line-height:1.1;
+    color:var(--crema);
+    text-align:center;
+    white-space:nowrap;
+    opacity:0;
+    animation:aparecer 1.2s ease .2s forwards;
+  }
+
+  /* ---------- SOBRE + FLORES ---------- */
+  .grupo-sobre{
+    position:relative;
+    width:100%;
+    margin-top:calc(var(--ew) * .30);   /* espacio para las flores */
+    cursor:pointer;
+    z-index:3;
+    transform:translateY(-130vh);
+    animation:entrarSobre 2.0s cubic-bezier(.22,1,.36,1) .7s forwards;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .grupo-sobre img{display:block;width:100%;height:auto;user-select:none;-webkit-user-drag:none}
+  .flores{
+    position:absolute;left:50%;
+    width:62%;
+    bottom:calc(100% - var(--ew) * .06);   /* base de las flores escondida tras el sobre */
+    transform:translateX(-50%);
+    z-index:0;
+    pointer-events:none;
+  }
+  .sobre-img{position:relative;z-index:2;
+    filter:drop-shadow(0 14px 22px rgba(0,0,0,.22));}
+  .grupo-sobre:hover .sobre-img{filter:drop-shadow(0 16px 26px rgba(0,0,0,.28))}
+
+  /* ---------- CARTILLA ---------- */
+  .cartilla{
+    position:relative;
+    width:84%;
+    aspect-ratio:512/300;
+    margin-top:calc(var(--ew) * .03);
+    z-index:1;                 /* por debajo del sobre: sale desde detrás */
+    opacity:0;
+    transform:translateY(calc(var(--ew) * -.62));
+    animation:deslizar 2.0s cubic-bezier(.22,1,.36,1) 2.3s forwards;
+    filter:drop-shadow(0 10px 18px rgba(0,0,0,.2));
+  }
+  .cartilla img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .datos{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;color:var(--texto);
+    padding:0 8%;
+    opacity:0;
+    animation:aparecer 1s ease 3.4s forwards;
+  }
+  .datos .etq{
+    font-size:calc(var(--ew) * .026);
+    letter-spacing:.3em;text-transform:uppercase;color:#9a947e;
+    margin-bottom:.4em;
+  }
+  .datos .nombre{
+    font-family:'Lovelace Text','Cormorant Garamond',serif;
+    font-size:calc(var(--ew) * .075);
+    line-height:1.15;
+    color:#4d4a3b;
+    word-break:break-word;
+  }
+  .datos .pases{
+    margin-top:.7em;
+    font-size:calc(var(--ew) * .034);
+    letter-spacing:.22em;
+    color:var(--texto);
+  }
+
+  /* ---------- INDICACIÓN ---------- */
+  .indicacion{
+    margin-top:calc(var(--ew) * .05);
+    font-size:calc(var(--ew) * .036);
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--crema);
+    text-align:center;
+    opacity:0;
+    animation:aparecer 1s ease 3.9s forwards;
+  }
+
+  @keyframes aparecer{to{opacity:1}}
+  @keyframes entrarSobre{to{transform:translateY(0)}}
+  @keyframes deslizar{
+    0%{opacity:0;transform:translateY(calc(var(--ew) * -.62))}
+    1%{opacity:1;transform:translateY(calc(var(--ew) * -.62))}
+    100%{opacity:1;transform:translateY(0)}
+  }
+</style>
+</head>
+<body>
+
+<main class="escena">
+  <h1 class="titulo">Invitación especial</h1>
+
+  <div class="grupo-sobre" id="sobre" role="link" tabindex="0" aria-label="Abrir invitación">
+    <img class="flores" src="flores.png" alt="" draggable="false">
+    <img class="sobre-img" src="sobre.png" alt="Sobre de invitación" draggable="false">
+  </div>
+
+  <div class="cartilla">
+    <img src="cartilla.png" alt="" draggable="false">
+    <div class="datos">
+      <div class="etq">Invitado</div>
+      <div class="nombre" id="nombre">Invitado especial</div>
+      <div class="pases" id="pases"></div>
+    </div>
+  </div>
+
+  <p class="indicacion">Toca el sobre para acceder</p>
+</main>
+
+<script>
+  /* ============ CONFIGURACIÓN ============ */
+  // Pega aquí el enlace público de tu invitación de Canva
+  const LINK_CANVA = "https://kusisainvitaciones.com/kathie-luis";
+
+  // URL de tu Apps Script publicado como "Aplicación web" (termina en /exec)
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxCBcYVz1sef6S7VrdpecxxuE37wbRs8rY4uMEdM1E4hdDnRwmdS7Hlk6r-Lrp4ZJhkGg/exec";
+  /* ======================================= */
+
+  // El enlace trae el número de fila de tu Google Sheet:  ?id=7
+  const params = new URLSearchParams(location.search);
+  const id = (params.get("id") || "").trim();
+
+  function ponerDatos(nombre, pases){
+    if (nombre) document.getElementById("nombre").textContent = nombre;
+    const n = parseInt(pases, 10);
+    document.getElementById("pases").textContent =
+      n > 0 ? (n === 1 ? "1 PASE" : n + " PASES") : "";
+  }
+
+  // Consulta tu Google Sheet en tiempo real a través de Apps Script
+  async function cargarInvitado(){
+    if (!id) return;
+    try{
+      const r = await fetch(APPS_SCRIPT_URL + "?id=" + encodeURIComponent(id) + "&_=" + Date.now(),
+                            {cache:"no-store"});
+      const d = await r.json();
+      if (d && d.ok) ponerDatos(d.nombre, d.pases);
+    }catch(e){ console.error(e); }
+  }
+  cargarInvitado();
+
+  // Click en el sobre -> Canva en la MISMA pestaña
+  const sobre = document.getElementById("sobre");
+  function abrir(){
+    document.body.classList.add("saliendo");
+    setTimeout(() => { window.location.href = LINK_CANVA; }, 700);
+  }
+  sobre.addEventListener("click", abrir);
+  sobre.addEventListener("keydown", e => {
+    if (e.key === "Enter" || e.key === " ") { e.preventDefault(); abrir(); }
+  });
+</script>
+</body>
+</html>
